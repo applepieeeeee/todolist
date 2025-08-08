@@ -1,5 +1,6 @@
 body {
-    font-family: 'Courier New', Courier, monospace; 
+    font-family: 'Roboto Mono', monospace; 
+    background-color: #f0e6d6; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,18 +12,28 @@ body {
 
 .container {
     width: 95%;
-    max-width: 500px;
-    background-color: #fef6e4;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    background-color: #f8f5ee;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 h1 {
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
+    color: #6d5b4a;
+    margin-bottom: 25px;
+    font-size: 2.5em;
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+}
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
     color: #a7754d; 
     margin-bottom: 25px;
+    font-size: 2.5em;
 }
 
 .input-area {
@@ -102,7 +113,9 @@ h1 {
     color: #a73030; 
 }
 
+
 .checkbox {
+    
     width: 20px;
     height: 20px;
     border: 2px solid #d4a373;
