@@ -11,7 +11,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
             min-height: 100vh;
             margin: 0;
             padding: 20px;
@@ -107,8 +106,6 @@
             color: #0b3004; 
         }
 
-
-
         .checkbox {
             width: 20px;
             height: 20px;
@@ -117,7 +114,6 @@
             cursor: pointer;
             appearance: none;
             background-color: #fef6e4;
-
             display: flex;
             justify-content: center;
             align-items: center;
@@ -133,30 +129,21 @@
             font-size: 14px;
         }
      </style>
-
 </head>
-
 <body>
-
-
     <div class="container">
         <h1>- Simple To-Do List -</h1>
-
         <div class="input-area">
             <input type="text" id="newTask" placeholder="Add a task...">
             <button id="addTaskBtn">Add</button>
         </div>
         <ul id="taskList">
             </ul> 
-
         <div class="githublink">
-            <a href="https://github.com/applepieeeeee/todolist" target="_blank">
-                
+            <a href="https://github.com/applepieeeeee/todolist" target="_blank">   
                 <button id="githubButton">GitHub Repository</button>
             </a>
         </div>
-
-
     </div>
 
     <script>
@@ -166,7 +153,6 @@
             const addTaskButton = document.getElementById('addTaskBtn');
             const taskList = document.getElementById('taskList');
             let tasks = []; 
-
 
             // Function to render tasks
             function renderTasks() {
@@ -221,7 +207,6 @@
                 }
 
             }
-
             // Function to toggle task completion !!!
             function toggleComplete(index) {
                 tasks = tasks.map((task, i) =>
