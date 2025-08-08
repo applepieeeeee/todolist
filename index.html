@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
             min-height: 100vh;
             margin: 0;
             padding: 20px;
@@ -22,7 +23,7 @@
             background-color: #fef6e4; 
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(72, 3, 3, 0.093);
         }
 
         h1 {
@@ -47,16 +48,16 @@
         #addTaskBtn {
             padding: 12px 15px;
             margin-left: 10px;
-            background-color: #a7c957;
-            color: #fff;
+            background-color: #adc080;
+            color: #ffffff;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
         }
-
+    
         #addTaskBtn:hover {
-            background-color: #86af49; 
+            background-color: #748955; 
         }
 
         #taskList {
@@ -95,15 +96,17 @@
         .task-actions button {
             background: none;
             border: none;
-            color: #000000; 
+            color: #254f1d; 
             cursor: pointer;
             margin-left: 10px;
             font-size: 18px;
         }
 
         .task-actions button:hover {
-            color: #000000; 
+            color: #0b3004; 
         }
+
+
 
         .checkbox {
             width: 20px;
@@ -113,12 +116,13 @@
             cursor: pointer;
             appearance: none;
             background-color: #fef6e4;
+
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .checkbox:checked {
+          .checkbox:checked {
             background-color: #a7c957;
         }
 
@@ -127,19 +131,207 @@
             color: #fff;
             font-size: 14px;
         }
-    </style>
+     </style>
+
 </head>
+
 <body>
 
+
     <div class="container">
-        <h1>To-Do List</h1>
+        <h1>- Simple To-Do List -</h1>
+
         <div class="input-area">
             <input type="text" id="newTask" placeholder="Add a task...">
             <button id="addTaskBtn">Add</button>
         </div>
         <ul id="taskList">
             </ul>
+
+        
+
+        <div class="github-link">
+            <a href="https://github.com/applepieeeeee/todolist" target="_blank">
+                <button id="githubButton">GitHub Repository</button>
+            </a>
+        </div>
+
+
     </div>
 
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // variables :o
+            const newTaskInput = document.getElementById('newTask');
+            const addTaskButton = document.getElementById('addTaskBtn');
+            const taskList = document.getElementById('taskList');
+            let tasks = []; 
+
+
+
+
+
+
+            // Function to render tasks
+            function renderTasks() {
+
+                taskList.innerHTML = '';
+
+                tasks.forEach((task, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('task-item');
+                    listItem.draggable = true;
+                    listItem.dataset.index = index;
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.classList.add('checkbox');
+                    checkbox.checked = task.completed;
+                    checkbox.addEventListener('change', () => toggleComplete(index));
+
+                    const taskContent = document.createElement('span');
+                    taskContent.classList.add('task-content');
+                    taskContent.textContent = task.text;
+                    taskContent.contentEditable = true;
+                    taskContent.addEventListener('blur', (event) => renameTask(index, event.target.textContent.trim()));
+
+                    if (task.completed) {
+                        listItem.classList.add('completed');
+                    }
+
+                    const actions = document.createElement('div');
+                    actions.classList.add('task-actions');
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = '✕';
+                    deleteButton.addEventListener('click', () => deleteTask(index));
+
+                    actions.appendChild(deleteButton);
+                    listItem.appendChild(checkbox);
+                    listItem.appendChild(taskContent);
+                    listItem.appendChild(actions);
+                    taskList.appendChild(listItem);
+                });
+            }
+
+
+
+            // Function to add a new task !!
+            function addTask() {
+                const taskText = newTaskInput.value.trim();
+
+                if (taskText !== '') {
+                    tasks.push({ text: taskText, completed: false });
+                    newTaskInput.value = '';
+                    renderTasks();
+                }
+
+            }
+ 
+            // Function to toggle task completion !!!
+            function toggleComplete(index) {
+                tasks = tasks.map((task, i) =>
+                    i === index ? { ...task, completed: !task.completed } : task
+                );
+
+
+
+
+
+                renderTasks();
+            }
+
+            // Function to delete a task !!!!
+            function deleteTask(index) {
+
+                tasks = tasks.filter((_, i) => i !== index);
+                renderTasks();
+
+            }
+ 
+            // Function to rename a task !!
+
+            function renameTask(index, newText) {
+                if (newText) {
+                    tasks = tasks.map((task, i) =>
+                        i === index ? { ...task, text: newText } : task
+                    );
+                    renderTasks();
+                } else {
+                    renderTasks(); 
+                }
+            }
+
+            // Drag and drop functionality
+            let draggedItem = null;
+
+            taskList.addEventListener('dragstart', (e) => {
+                draggedItem = e.target;
+                e.target.classList.add('dragging');
+            });
+
+            taskList.addEventListener('dragend', (e) => {
+                e.target.classList.remove('dragging');
+
+                draggedItem = null;
+                
+                const newTasksOrder = Array.from(taskList.children).map(item => tasks.find((task, index) => index === parseInt(item.dataset.index)));
+                tasks = newTasksOrder.filter(task => task !== undefined);
+                renderTasks();
+            });
+
+            taskList.addEventListener('dragover', (e) => {
+                e.preventDefault();
+
+                const afterElement = getDragAfterElement(taskList, e.clientY);
+                const draggable = document.querySelector('.dragging');
+
+                if (afterElement == null) {
+                    taskList.appendChild(draggable);
+                } else {
+                    taskList.insertBefore(draggable, afterElement);
+                }
+            });
+
+            function getDragAfterElement(container, y) {
+                const draggableElements = [...container.querySelectorAll('.task-item:not(.dragging)')];
+
+                return draggableElements.reduce((closest, child) => {
+
+                    const box = child.getBoundingClientRect();
+                    const offset = y - box.top - box.height / 2;
+
+                    if (offset < 0 && offset > closest.offset) {
+                        return { offset: offset, element: child };
+                    } else {
+                        return closest;
+                    }
+
+                }, { offset: Number.NEGATIVE_INFINITY }).element;
+
+            }
+
+            addTaskButton.addEventListener('click', addTask);
+
+            newTaskInput.addEventListener('keypress', (e) => {
+
+                if (e.key === 'Enter') {
+                    addTask();
+                }
+            });
+
+            renderTasks();
+        });
+    </script>
+
+<style>
+        body {
+         cursor: url('icons/cursor.png'), auto;
+        }
+    </style>
+
+  </body>
+
+
+
 </html>

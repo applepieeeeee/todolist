@@ -1,0 +1,132 @@
+body {
+    font-family: sans-serif;
+    background-color: #f8edeb; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+
+    cursor: url('icons/cursor.png'), auto;
+
+}
+
+.container {
+    width: 95%;
+    max-width: 500px;
+    background-color: #fef6e4;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #a7754d; 
+    margin-bottom: 25px;
+}
+
+.input-area {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#newTask {
+    flex-grow: 1;
+    padding: 12px;
+    border: 2px solid #d4a373; 
+
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+#addTaskBtn {
+    padding: 12px 15px;
+    margin-left: 10px;
+
+    background-color: #a7c957;
+
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#addTaskBtn:hover {
+    background-color: #86af49; 
+}
+
+#taskList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background-color: #e9ece5; 
+
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #d4a373;
+
+    cursor: grab;
+}
+
+.task-item.dragging {
+    opacity: 0.5;
+}
+
+.task-item.completed span {
+    text-decoration: line-through;
+    color: #bbb;
+}
+
+.task-content {
+    flex-grow: 1;
+    margin-left: 10px;
+    font-size: 16px;
+    color: #588157; 
+    cursor: text;
+}
+
+.task-actions button {
+    background: none;
+    border: none;
+    color: #43522a; 
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.task-actions button:hover {
+    color: #a73030; 
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d4a373;
+    border-radius: 5px;
+    cursor: pointer;
+    appearance: none;
+    background-color: #fef6e4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkbox:checked {
+    background-color: #a7c957;
+}
+
+.checkbox:checked::before {
+    content: '✓';
+    color: #fff;
+    font-size: 14px;
+}
