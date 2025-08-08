@@ -16,7 +16,7 @@
             margin: 0;
             padding: 20px;
         }
-
+        
         .container {
             width: 95%;
             max-width: 500px;
@@ -28,7 +28,7 @@
 
         h1 {
             text-align: center;
-            color: #a7754d; 
+            color: #9b6b45; 
             margin-bottom: 25px;
         }
 
@@ -146,11 +146,9 @@
             <button id="addTaskBtn">Add</button>
         </div>
         <ul id="taskList">
-            </ul>
+            </ul> 
 
-        
-
-        <div class="github-link">
+        <div class="githublink">
             <a href="https://github.com/applepieeeeee/todolist" target="_blank">
                 <button id="githubButton">GitHub Repository</button>
             </a>
@@ -166,10 +164,6 @@
             const addTaskButton = document.getElementById('addTaskBtn');
             const taskList = document.getElementById('taskList');
             let tasks = []; 
-
-
-
-
 
 
             // Function to render tasks
@@ -214,8 +208,6 @@
                 });
             }
 
-
-
             // Function to add a new task !!
             function addTask() {
                 const taskText = newTaskInput.value.trim();
@@ -227,15 +219,12 @@
                 }
 
             }
- 
+
             // Function to toggle task completion !!!
             function toggleComplete(index) {
                 tasks = tasks.map((task, i) =>
                     i === index ? { ...task, completed: !task.completed } : task
                 );
-
-
-
 
 
                 renderTasks();
